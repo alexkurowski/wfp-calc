@@ -1,0 +1,70 @@
+!!!
+%head
+  == <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+  == <script src="script.js"></script>
+  == <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+%body
+  %form.calc
+    Материал:
+    %select{:name => 'material'}
+      %option{:value => '0'} Пленка ORAJET 3640
+      %option{:value => '1'} Пленка ORAJET 3850 Транслюцентная
+      %option{:value => '2'} Бэклит
+      %option{:value => '3'} Перфорированная плёнка
+      %option{:value => '4'} Баннер 510 г/м2
+      %option{:value => '5'} Баннер 440 г/м2
+      %option{:value => '6'} Баннер транслюцентный
+      %option{:value => '7'} Баннер двухсторонний
+      %option{:value => '8'} Баннерная сетка
+      %option{:value => '9'} Фотобумага
+      %option{:value => '10'} Постерная бумага
+      %option{:value => '11'} Бумага (blue back)
+      %option{:value => '12'} Холст
+      %option{:value => '13'} Фотообои флизелиновы
+    %br
+    Ширина (м):
+    %input{:type => 'number', :name => 'width', :value => 1}
+    %br
+    Длина (м):
+    %input{:type => 'number', :name => 'length', :value => 1}
+    %br
+    Тираж (шт):
+    %input{:type => 'number', :name => 'amount', :value => 1}
+    %br
+    Качество:
+    %select{:name => 'quality'}
+      %option{:value => '360'} 360 dpi
+      %option{:value => '720'} 720 dpi
+      %option{:value => '1440'} 1440 dpi
+    %br
+    Постпечатная обработка:
+    #postpress_options
+      %input{:type => 'checkbox', :name => 'cut_perimeter'}
+      Резка по периметру
+      %br
+      %input{:type => 'checkbox', :name => 'cut_outline'}
+      Контурная резка
+      %br
+      %input{:type => 'checkbox', :name => 'lamination'}
+      Ламинирование
+      %br
+      %input{:type => 'checkbox', :name => 'eyelets'}
+      Люверсы
+      #eyelets_options
+        %input{:type => 'radio', :name => 'eyelets_radio', :value => '4', :checked => 'true'}
+        По углам
+        %input{:type => 'radio', :name => 'eyelets_radio', :value => '30'}
+        Каждые 30 см
+        %input{:type => 'radio', :name => 'eyelets_radio', :value => '50'}
+        Каждые 50 см
+      %input{:type => 'checkbox', :name => 'gluing'}
+      Проклейка
+      %br
+      %input{:type => 'checkbox', :name => 'rolling'}
+      Накатка на материал
+    %br
+    Итого:
+    %span#price 
+    %br
+    Примерное время изготовления:
+    %span#time 
