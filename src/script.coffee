@@ -87,27 +87,27 @@ calculate = ->
   price = total_meterage * current_material_prices[material]
 
   if options.cut_perimeter
-    price += total_perimeter * pricelist.postprint.cut_perimeter
+    price = price +  total_perimeter * pricelist.postprint.cut_perimeter
   if options.cut_outline
-    price += total_meterage * pricelist.postprint.cut_outline
+    price = price +  total_meterage * pricelist.postprint.cut_outline
   if options.lamination
-    price += total_meterage * pricelist.postprint.lamination
+    price = price + total_meterage * pricelist.postprint.lamination
   if options.eyelets
     if eyelets_option == 4
-      price += 4 * pricelist.postprint.eyelet
+      price = price + 4 * pricelist.postprint.eyelet
     else if eyelets_option == 30
-      price += Math.round(total_perimeter * 0.3) * pricelist.postprint.eyelet
+      price = price + Math.round(total_perimeter * 0.3) * pricelist.postprint.eyelet
     else if eyelets_option == 50
-      price += Math.round(total_perimeter * 0.5) * pricelist.postprint.eyelet
+      price = price + Math.round(total_perimeter * 0.5) * pricelist.postprint.eyelet
   if options.gluing
-    price += total_perimeter * pricelist.postprint.gluing
+    price = price + total_perimeter * pricelist.postprint.gluing
   if options.rolling
-    price += total_meterage * pricelist.postprint.rolling
+    price = price + total_meterage * pricelist.postprint.rolling
 
   if isNaN(price)
     price = "Несоответствующее качество печати"
   else
-    price += " руб."
+    price = price + " руб."
 
 
   if quality == 360
@@ -115,12 +115,19 @@ calculate = ->
   else
     time = Math.ceil(total_meterage / 10)
 
-  if time % 100 == 1
-    time += " день"
-  else if time % 100 > 1 and time % 100 < 5
-    time += " дня"
+
+  if time % 10 == 1
+    unless time % 100 == 11
+      time = time + " день"
+    else
+      time = time + " дней"
+  else if time % 10 > 1 and time % 10 < 5
+    unless time % 100 > 11 and time % 100 < 15
+      time = time + " дня"
+    else
+      time = time + " дней"
   else
-    time += " дней"
+    time = time + " дней"
 
   
   $("#price").html(price)
