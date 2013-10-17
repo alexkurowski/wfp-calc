@@ -21,6 +21,20 @@
       }
     };
     material = Number($("select[name='material']").val());
+    if (material === 9) {
+      if (Number($("select[name='quality']").val()) === 360) {
+        $("select[name='quality']").val('720');
+      }
+      $("option[value='360']").attr('disabled', 'disabled').siblings().removeAttr('disabled');
+    } else if (material === 8) {
+      if (Number($("select[name='quality']").val()) === 1440) {
+        $("select[name='quality']").val('720');
+      }
+      $("option[value='1440']").attr('disabled', 'disabled').siblings().removeAttr('disabled');
+    } else {
+      $("option[value='360']").removeAttr('disabled');
+      $("option[value='1440']").removeAttr('disabled');
+    }
     width = Number($("input[name='width']").val());
     length = Number($("input[name='length']").val());
     amount = Number($("input[name='amount']").val());
@@ -57,21 +71,21 @@
     }
     price = total_meterage * current_material_prices[material];
     if (options.cut_perimeter) {
-      price += total_perimeter * pricelist.postprint.cut_perimeter;
+      price = price + total_perimeter * pricelist.postprint.cut_perimeter;
     }
     if (options.cut_outline) {
-      price += total_meterage * pricelist.postprint.cut_outline;
+      price = price + total_meterage * pricelist.postprint.cut_outline;
     }
     if (options.lamination) {
-      price += total_meterage * pricelist.postprint.lamination;
+      price = price + total_meterage * pricelist.postprint.lamination;
     }
     if (options.eyelets) {
       if (eyelets_option === 4) {
         price = price + 4 * pricelist.postprint.eyelet;
       } else if (eyelets_option === 30) {
-        price = price + Math.round(total_perimeter * 0.3) * pricelist.postprint.eyelet;
+        price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet;
       } else if (eyelets_option === 50) {
-        price = price + Math.round(total_perimeter * 0.5) * pricelist.postprint.eyelet;
+        price = price + Math.floor(total_perimeter / 0.5) * pricelist.postprint.eyelet;
       }
     }
     if (options.gluing) {
@@ -83,36 +97,42 @@
     if (isNaN(price)) {
       price = "Несоответствующее качество печати";
     } else {
-      price = price + " руб.";
+      price = price.toFixed(2) + " руб.";
     }
     if (quality === 360) {
-      time = Math.ceil(total_meterage / 65);
+      time = Math.ceil(total_meterage / (65 * 8));
     } else {
-      time = Math.ceil(total_meterage / 10);
+      time = Math.ceil(total_meterage / (20 * 8));
+    }
+    if (total_meterage > 100) {
+      time = time + 1;
     }
     if (time % 10 === 1) {
-    if (time % 100 !== 11) {
-      time = time + " день";
+      if (time % 100 !== 11) {
+        time = time + " день";
+      } else {
+        time = time + " дней";
+      }
+    } else if (time % 10 > 1 && time % 10 < 5) {
+      if (!(time % 100 > 11 && time % 100 < 15)) {
+        time = time + " дня";
+      } else {
+        time = time + " дней";
+      }
     } else {
       time = time + " дней";
     }
-  } else if (time % 10 > 1 && time % 10 < 5) {
-    if (!(time % 100 > 11 && time % 100 < 15)) {
-      time = time + " дня";
-    } else {
-      time = time + " дней";
-    }
-  } else {
-    time = time + " дней";
-  }
     $("#price").html(price);
     return $("#time").html(time);
   };
 
   jQuery(function() {
-    return $("form.calc").change(function() {
+    $("form.calc").change(function() {
       return calculate();
     });
+    $("input[name='width']").on('input', calculate);
+    $("input[name='height']").on('input', calculate);
+    return $("input[name='number']").on('input', calculate);
   });
 
 }).call(this);
