@@ -50,6 +50,19 @@ calculate = ->
   }
 
   material = Number($("select[name='material']").val())
+
+  if material == 9
+    if Number($("select[name='quality']").val()) == 360
+      $("select[name='quality']").val('720')
+    $("option[value='360']").attr('disabled','disabled').siblings().removeAttr('disabled');
+  else if material == 8
+    if Number($("select[name='quality']").val()) == 1440
+      $("select[name='quality']").val('720')
+    $("option[value='1440']").attr('disabled','disabled').siblings().removeAttr('disabled');
+  else
+    $("option[value='360']").removeAttr('disabled')
+    $("option[value='1440']").removeAttr('disabled')
+
   width = Number($("input[name='width']").val())
   length = Number($("input[name='length']").val())
   amount = Number($("input[name='amount']").val())
@@ -63,7 +76,7 @@ calculate = ->
     rolling:       $("input[name='rolling']").is(':checked')
   }
   eyelets_option = Number($("input[name='eyelets_radio']:checked").val())
-  
+
   total_perimeter = (width + length) * 2 * amount
   total_meterage = width * length * amount
 
@@ -96,9 +109,9 @@ calculate = ->
     if eyelets_option == 4
       price = price + 4 * pricelist.postprint.eyelet
     else if eyelets_option == 30
-      price = price + Math.round(total_perimeter * 0.3) * pricelist.postprint.eyelet
+      price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet
     else if eyelets_option == 50
-      price = price + Math.round(total_perimeter * 0.5) * pricelist.postprint.eyelet
+      price = price + Math.floor(total_perimeter / 0.5) * pricelist.postprint.eyelet
   if options.gluing
     price = price + total_perimeter * pricelist.postprint.gluing
   if options.rolling
@@ -107,13 +120,13 @@ calculate = ->
   if isNaN(price)
     price = "Несоответствующее качество печати"
   else
-    price = price + " руб."
+    price = price.toFixed(2) + " руб."
 
 
   if quality == 360
-    time = Math.ceil(total_meterage / 65)
+    time = Math.ceil(total_meterage / (65 * 8))
   else
-    time = Math.ceil(total_meterage / 10)
+    time = Math.ceil(total_meterage / (20 * 8))
 
 
   if time % 10 == 1

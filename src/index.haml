@@ -23,10 +23,10 @@
       %option{:value => '13'} Фотообои флизелиновы
     %br
     Ширина (м):
-    %input{:type => 'number', :name => 'width', :value => 1}
+    %input{:type => 'number', :name => 'width', :step => 0.1, :value => 1}
     %br
     Длина (м):
-    %input{:type => 'number', :name => 'length', :value => 1}
+    %input{:type => 'number', :name => 'length', :step => 0.1, :value => 1}
     %br
     Тираж (шт):
     %input{:type => 'number', :name => 'amount', :value => 1}
@@ -59,9 +59,9 @@
         Каждые 50 см
       %input{:type => 'checkbox', :name => 'gluing'}
       Проклейка
-      %br
-      %input{:type => 'checkbox', :name => 'rolling'}
-      Накатка на материал
+      -#%br
+      -#%input{:type => 'checkbox', :name => 'rolling'}
+      -#Накатка на материал
     %br
     Итого:
     %span#price 
