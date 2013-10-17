@@ -49,6 +49,7 @@ calculate = ->
     }
   }
 
+
   material = Number($("select[name='material']").val())
 
   if material == 9
@@ -127,6 +128,8 @@ calculate = ->
     time = Math.ceil(total_meterage / (65 * 8))
   else
     time = Math.ceil(total_meterage / (20 * 8))
+  if total_meterage > 100
+    time = time + 1
 
 
   if time % 10 == 1
@@ -150,3 +153,6 @@ calculate = ->
 jQuery ->
   $("form.calc").change ->
     calculate()
+  $("input[name='width']").on('input', calculate)
+  $("input[name='height']").on('input', calculate)
+  $("input[name='number']").on('input', calculate)
