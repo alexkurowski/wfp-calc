@@ -63,6 +63,28 @@ $options = array(
 );
 $eyelets_option = $_POST['eyelets_radio'];
 
+switch ($material) {
+  case 0: case 1: case 3:
+    $options[eyelets] = '';
+    $options[gluing] = '';
+    break;
+  case 2: case 11: case 12: case 13:
+    $options[cut_outline] = '';
+    $options[lamination] = '';
+    $options[eyelets] = '';
+    $options[gluing] = '';
+    break;
+  case 4: case 5: case 6: case 7: case 8:
+    $options[cut_outline] = '';
+    $options[lamination] = '';
+    break;
+  case 9: case 10:
+    $options[cut_outline] = '';
+    $options[eyelets] = '';
+    $options[gluing] = '';
+    break;
+}
+
 $total_perimeter = ($width + $length) * 2 * $amount;
 $total_meterage = $width * $length * $amount;
 
@@ -87,54 +109,59 @@ if ($quality == 360) {
   }
 }
 
-if ($pricelist[$current_material_prices][$material] == '-') {
+if (isset($_POST['width']) && isset($_POST['length']) && isset($_POST['amount'])){
+  if ($pricelist[$current_material_prices][$material] == '-') {
 
-  $price = 'Несоответствующее качество печати';
+    $price = 'Несоответствующее качество печати';
 
+  } else {
+
+    $price = $total_meterage * $pricelist[$current_material_prices][$material];
+
+    if ($options[cut_perimeter] == 'on')
+      $price = $price + $total_perimeter * $pricelist[postprint][cut_perimeter];
+    if ($options[cut_outline] == 'on')
+      $price = $price + $total_meterage * $pricelist[postprint][cut_outline];
+    if ($options[lamination] == 'on')
+      $price = $price + $total_meterage * $pricelist[postprint][lamination];
+    if ($options[eyelets] == 'on')
+      if ($eyelets_option == 4)
+        $price = $price + 4 * $pricelist[postprint][eyelet];
+      elseif ($eyelets_option == 30)
+        $price = $price + floor($total_meterage / 0.3) * $pricelist[postprint][eyelet];
+      elseif ($eyelets_option == 50)
+        $price = $price + floor($total_meterage / 0.5) * $pricelist[postprint][eyelet];
+    if ($options[gluing] == 'on')
+      $price = $price + $total_perimeter * $pricelist[postprint][gluing];
+    if ($options[rolling] == 'on')
+      $price = $price + $total_meterage * $pricelist[postprint][rolling];
+
+    $price = ((string)number_format($price, 2, '.', '')) . ' руб.';
+
+    $time = 0;
+    if ($quality == 360)
+      $time = ceil($total_meterage / (65 * 8));
+    else
+      $time = ceil($total_meterage / (20 * 8));
+    if ($total_meterage > 100)
+      $time = $time + 1;
+
+    if ($time%10 == 1)
+      if ($time%100 != 11)
+        $time = (string)$time . ' день';
+      else
+        $time = (string)$time . ' дней';
+    elseif ($time%10 > 1 && $time%10 < 5)
+      if ($time%100 > 11 && $time%100 < 15)
+        $time = (string)$time . ' дней';
+      else
+        $time = (string)$time . ' дня';
+    else
+      $time = (string)$time . ' дней';
+  }
 } else {
-
-  $price = $total_meterage * $pricelist[$current_material_prices][$material];
-
-  if ($options[cut_perimeter] == 'on')
-    $price = $price + $total_perimeter * $pricelist[postprint][cut_perimeter];
-  if ($options[cut_outline] == 'on')
-    $price = $price + $total_meterage * $pricelist[postprint][cut_outline];
-  if ($options[lamination] == 'on')
-    $price = $price + $total_meterage * $pricelist[postprint][lamination];
-  if ($options[eyelets] == 'on')
-    if ($eyelets_option == 4)
-      $price = $price + 4 * $pricelist[postprint][eyelet];
-    elseif ($eyelets_option == 30)
-      $price = $price + floor($total_meterage / 0.3) * $pricelist[postprint][eyelet];
-    elseif ($eyelets_option == 50)
-      $price = $price + floor($total_meterage / 0.5) * $pricelist[postprint][eyelet];
-  if ($options[gluing] == 'on')
-    $price = $price + $total_perimeter * $pricelist[postprint][gluing];
-  if ($options[rolling] == 'on')
-    $price = $price + $total_meterage * $pricelist[postprint][rolling];
-
-  $price = ((string)number_format($price, 2, '.', '')) . ' руб.';
-
-  $time = 0;
-  if ($quality == 360)
-    $time = ceil($total_meterage / (65 * 8));
-  else
-    $time = ceil($total_meterage / (20 * 8));
-  if ($total_meterage > 100)
-    $time = $time + 1;
-
-  if ($time%10 == 1)
-    if ($time%100 != 11)
-      $time = (string)$time . ' день';
-    else
-      $time = (string)$time . ' дней';
-  elseif ($time%10 > 1 && $time%10 < 5)
-    if ($time%100 > 11 && $time%100 < 15)
-      $time = (string)$time . ' дней';
-    else
-      $time = (string)$time . ' дня';
-  else
-    $time = (string)$time . ' дней';
+  $price = "0.00 руб.";
+  $time = "0 дней";
 }
 
 // restore parameters

@@ -170,7 +170,7 @@ calculate = ->
 jQuery ->
   $(document).ready -> calculate()
   $("form.calc").change -> calculate()
-  $("input[name='material']").on('input', calculate)
+  $("input[name='material']").on('change', calculate)
   $("input[name='width']").on('input', calculate)
   $("input[name='height']").on('input', calculate)
   $("input[name='number']").on('input', calculate)
