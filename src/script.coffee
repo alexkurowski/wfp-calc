@@ -64,17 +64,34 @@ calculate = ->
     $("option[value='360']").removeAttr('disabled')
     $("option[value='1440']").removeAttr('disabled')
 
+  switch material
+    when 0, 1, 3
+      $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"]').removeAttr('disabled')
+      $('input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
+    when 2, 11, 12, 13
+      $('input[name="cut_perimeter"]').removeAttr('disabled')
+      $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
+    when 4, 5, 6, 7, 8
+      $('input[name="cut_perimeter"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled')
+      $('input[name="cut_outline"], input[name="lamination"]').attr('disabled','disabled')
+    when 9, 10
+      $('input[name="cut_perimeter"], input[name="lamination"]').removeAttr('disabled')
+      $('input[name="cut_outline"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
+    else
+      $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled')
+
+
   width = Number($("input[name='width']").val())
   length = Number($("input[name='length']").val())
   amount = Number($("input[name='amount']").val())
   quality = Number($("select[name='quality']").val())
   options = {
-    cut_perimeter: $("input[name='cut_perimeter']").is(':checked')
-    cut_outline:   $("input[name='cut_outline']").is(':checked')
-    lamination:    $("input[name='lamination']").is(':checked')
-    eyelets:       $("input[name='eyelets']").is(':checked')
-    gluing:        $("input[name='gluing']").is(':checked')
-    rolling:       $("input[name='rolling']").is(':checked')
+    cut_perimeter: if $("input[name='cut_perimeter']").is(':disabled') then false else $("input[name='cut_perimeter']").is(':checked')
+    cut_outline:   if $("input[name='cut_outline']").is(':disabled') then false else $("input[name='cut_outline']").is(':checked')
+    lamination:    if $("input[name='lamination']").is(':disabled') then false else $("input[name='lamination']").is(':checked')
+    eyelets:       if $("input[name='eyelets']").is(':disabled') then false else $("input[name='eyelets']").is(':checked')
+    gluing:        if $("input[name='gluing']").is(':disabled') then false else $("input[name='gluing']").is(':checked')
+    rolling:       if $("input[name='rolling']").is(':disabled') then false else $("input[name='rolling']").is(':checked')
   }
   eyelets_option = Number($("input[name='eyelets_radio']:checked").val())
 
@@ -151,8 +168,9 @@ calculate = ->
   
 
 jQuery ->
-  $("form.calc").change ->
-    calculate()
+  $(document).ready -> calculate()
+  $("form.calc").change -> calculate()
+  $("input[name='material']").on('input', calculate)
   $("input[name='width']").on('input', calculate)
   $("input[name='height']").on('input', calculate)
   $("input[name='number']").on('input', calculate)
