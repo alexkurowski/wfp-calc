@@ -215,8 +215,9 @@ if ($options[gluing] == 'on')
 if ($options[rolling] == 'on')
   $message .= "-- Накатывание\n";
 
-$message .= "\n\n";
-$message .= "Комментарий клиента: " . $comment;
+$message .= "\nРасчетная стоимость: " . $price;
+$message .= "\nРасчетное время: " . $time;
+$message .= "\n\nКомментарий клиента: " . $comment;
 
 mail("!!! ТВОЙ E-MAIL ЗДЕСЬ !!!", "Заказ широкоформатной печати (сайт)", $message);
 
