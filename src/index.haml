@@ -4,7 +4,7 @@
   == <script src="script.js"></script>
   == <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 %body
-  %form.calc
+  %form.calc{:action => 'place_order.php', :method => 'post'}
     Материал:
     %select{:name => 'material'}
       %option{:value => '0'} Пленка ORAJET 3640
@@ -67,4 +67,17 @@
     %span#price 
     %br
     Примерное время изготовления:
-    %span#time 
+    %span#time
+    %br
+    %br
+    %br
+    Ваш e-mail:
+    %input{:type => 'text', :name => 'email'}
+    %br
+    Ваш телефон:
+    %input{:type => 'text', :name => 'phone'}
+    %br
+    Комментарии:
+    %input{:type => 'text', :name => 'comment'}
+    %br
+    %input{:type => 'submit', :value => 'Заказать'}
