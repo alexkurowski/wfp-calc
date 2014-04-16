@@ -48,8 +48,6 @@
       %input{:type => 'checkbox', :name => 'lamination'}
       Ламинирование
       %br
-      / %input{:type => 'checkbox', :name => 'eyelets'}
-      / Люверсы
       #eyelets_options
         %input{:type => 'radio', :name => 'eyelets_radio', :value => '0', :checked => 'true'}
         Без люверсов
@@ -61,9 +59,9 @@
         Каждые 50 см
       %input{:type => 'checkbox', :name => 'gluing'}
       Проклейка
-      -#%br
-      -#%input{:type => 'checkbox', :name => 'rolling'}
-      -#Накатка на материал
+      / %br
+      / %input{:type => 'checkbox', :name => 'rolling'}
+      / Накатка на материал
     %br
     Итого:
     %span#price 

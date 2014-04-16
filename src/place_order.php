@@ -78,7 +78,6 @@ $options = array(
   gluing => $_POST['gluing'],
   rolling => $_POST['rolling'],
 );
-$eyelets_option = $_POST['eyelets_radio'];
 
 $email = $_POST['email'];
 $phone = $_POST['phone'];
@@ -146,13 +145,12 @@ if (isset($_POST['width']) && isset($_POST['length']) && isset($_POST['amount'])
       $price = $price + $total_meterage * $pricelist[postprint][cut_outline];
     if ($options[lamination] == 'on')
       $price = $price + $total_meterage * $pricelist[postprint][lamination];
-    if ($options[eyelets] == 'on')
-      if ($eyelets_option == 4)
-        $price = $price + 4 * $pricelist[postprint][eyelet];
-      elseif ($eyelets_option == 30)
-        $price = $price + floor($total_meterage / 0.3) * $pricelist[postprint][eyelet];
-      elseif ($eyelets_option == 50)
-        $price = $price + floor($total_meterage / 0.5) * $pricelist[postprint][eyelet];
+    if ($eyelets_option == 4)
+      $price = $price + 4 * $pricelist[postprint][eyelet] * $amount;
+    elseif ($eyelets_option == 30)
+      $price = $price + floor($total_meterage / 0.3) * $pricelist[postprint][eyelet];
+    elseif ($eyelets_option == 50)
+      $price = $price + floor($total_meterage / 0.5) * $pricelist[postprint][eyelet];
     if ($options[gluing] == 'on')
       $price = $price + $total_perimeter * $pricelist[postprint][gluing];
     if ($options[rolling] == 'on')

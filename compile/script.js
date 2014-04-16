@@ -77,7 +77,6 @@
       gluing: $("input[name='gluing']").is(':disabled') ? false : $("input[name='gluing']").is(':checked'),
       rolling: $("input[name='rolling']").is(':disabled') ? false : $("input[name='rolling']").is(':checked')
     };
-    eyelets_option = Number($("input[name='eyelets_radio']:checked").val());
     total_perimeter = (width + length) * 2 * amount;
     total_meterage = width * length * amount;
     if (quality === 360) {
