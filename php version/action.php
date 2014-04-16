@@ -126,7 +126,7 @@ if (isset($_POST['width']) && isset($_POST['length']) && isset($_POST['amount'])
       $price = $price + $total_meterage * $pricelist[postprint][lamination];
     if ($options[eyelets] == 'on')
       if ($eyelets_option == 4)
-        $price = $price + 4 * $pricelist[postprint][eyelet];
+        $price = $price + 4 * $pricelist[postprint][eyelet] * $amount;
       elseif ($eyelets_option == 30)
         $price = $price + floor($total_meterage / 0.3) * $pricelist[postprint][eyelet];
       elseif ($eyelets_option == 50)
