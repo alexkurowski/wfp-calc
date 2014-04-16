@@ -118,18 +118,18 @@ calculate = ->
   price = total_meterage * current_material_prices[material]
 
   if options.cut_perimeter
-    price = price +  total_perimeter * pricelist.postprint.cut_perimeter
+    price = price + total_perimeter * pricelist.postprint.cut_perimeter
   if options.cut_outline
-    price = price +  total_meterage * pricelist.postprint.cut_outline
+    price = price + total_meterage * pricelist.postprint.cut_outline
   if options.lamination
     price = price + total_meterage * pricelist.postprint.lamination
-  if options.eyelets
-    if eyelets_option == 4
-      price = price + 4 * pricelist.postprint.eyelet
-    else if eyelets_option == 30
-      price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet
-    else if eyelets_option == 50
-      price = price + Math.floor(total_perimeter / 0.5) * pricelist.postprint.eyelet
+  # if options.eyelets
+  if eyelets_option = 4
+    price = price + 4 * pricelist.postprint.eyelet * amount
+  else if eyelets_option == 30
+    price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet
+  else if eyelets_option == 50
+    price = price + Math.floor(total_perimeter / 0.5) * pricelist.postprint.eyelet
   if options.gluing
     price = price + total_perimeter * pricelist.postprint.gluing
   if options.rolling

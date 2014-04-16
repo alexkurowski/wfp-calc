@@ -51,10 +51,12 @@
       <input name='lamination' type='checkbox'>
       Ламинирование
       <br>
-      <input name='eyelets' type='checkbox'>
-      Люверсы
+      <!-- %input{:type => 'checkbox', :name => 'eyelets'} -->
+      <!-- Люверсы -->
       <div id='eyelets_options'>
-        <input checked='true' name='eyelets_radio' type='radio' value='4'>
+        <input checked='true' name='eyelets_radio' type='radio' value='0'>
+        Без люверсов
+        <input name='eyelets_radio' type='radio' value='4'>
         По углам
         <input name='eyelets_radio' type='radio' value='30'>
         Каждые 30 см
