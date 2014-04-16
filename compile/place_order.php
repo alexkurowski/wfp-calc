@@ -140,7 +140,7 @@ if (isset($_POST['width']) && isset($_POST['length']) && isset($_POST['amount'])
     $price = $total_meterage * $pricelist[$current_material_prices][$material];
 
     
-  if ($options[cut_perimeter] == 'on')
+    if ($options[cut_perimeter] == 'on')
       $price = $price + $total_perimeter * $pricelist[postprint][cut_perimeter];
     if ($options[cut_outline] == 'on')
       $price = $price + $total_meterage * $pricelist[postprint][cut_outline];
