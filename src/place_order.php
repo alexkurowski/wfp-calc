@@ -48,20 +48,20 @@ $pricelist = array(
 );
 
 $material_name = array(
-	"Пленка ORAJET 3640",
-	"Пленка ORAJET 3850 Транслюцентная",
-	"Бэклит",
-	"Перфорированная плёнка",
-	"Баннер 510 г/м2",
-	"Баннер 440 г/м2",
-	"Баннер транслюцентный",
-	"Баннер двухсторонний",
-	"Баннерная сетка",
-	"Фотобумага",
- 	"Постерная бумага",
- 	"Бумага (blue back)",
- 	"Холст",
- 	"Фотообои флизелиновы",
+  "Пленка ORAJET 3640",
+  "Пленка ORAJET 3850 Транслюцентная",
+  "Бэклит",
+  "Перфорированная плёнка",
+  "Баннер 510 г/м2",
+  "Баннер 440 г/м2",
+  "Баннер транслюцентный",
+  "Баннер двухсторонний",
+  "Баннерная сетка",
+  "Фотобумага",
+  "Постерная бумага",
+  "Бумага (blue back)",
+  "Холст",
+  "Фотообои флизелиновы",
 );
 
 $material = $_POST['material'];
@@ -140,7 +140,7 @@ if (isset($_POST['width']) && isset($_POST['length']) && isset($_POST['amount'])
     $price = $total_meterage * $pricelist[$current_material_prices][$material];
 
     
-	if ($options[cut_perimeter] == 'on')
+  if ($options[cut_perimeter] == 'on')
       $price = $price + $total_perimeter * $pricelist[postprint][cut_perimeter];
     if ($options[cut_outline] == 'on')
       $price = $price + $total_meterage * $pricelist[postprint][cut_outline];
