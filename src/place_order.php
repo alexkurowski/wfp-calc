@@ -4,37 +4,37 @@ $pricelist = array(
     245, 620, 470, 580,
     255, 190, 210, 330, 250,
     '-', 180, 105,
-    '-', '-',
+    '-', '-', '-', '-',
   ),
   '360_ifg' => array(
     210, 540, 410, 505,
     220, 165, 180, 300, 215,
     '-', 155, 90,
-    '-', '-',
+    '-', '-', '-', '-',
   ),
   '720_ifl' => array(
     385, 955, 700, 895,
     390, 310, 330, 525, 400,
     455, 280, 160,
-    700, 1740,
+    700, 1740, 635, 790,
   ),
   '720_ifg' => array(
     320, 830, 610, 775,
     340, 265, 280, 455, 350,
     385, 240, 140,
-    610, 1510,
+    610, 1510, 550, 685,
   ),
   '1440_ifl' => array(
     485, 1200, 875, 1115,
     490, 380, 375, 600, '-',
     555, 345, 200,
-    875, 2175,
+    875, 2175, 790, 985,
   ),
   '1440_ifg' => array(
     400, 1040, 760, 970,
     425, 330, 325, 520, '-',
     480, 300, 175,
-    760, 1890,
+    760, 1890, 685, 855,
   ),
 
   postprint => array(
@@ -61,7 +61,9 @@ $material_name = array(
   "Постерная бумага",
   "Бумага (blue back)",
   "Холст",
-  "Фотообои флизелиновы",
+  "Фотообои флизелиновые 330 г/м2 (Германия)",
+  "Фотообои бумажные 275 г/м2 (Китай)",
+  "Фотообои бумажные 275 г/м2 (Нидерланды)"
 );
 
 $material = $_POST['material'];
@@ -74,10 +76,14 @@ $options = array(
   cut_perimeter => $_POST['cut_perimeter'],
   cut_outline => $_POST['cut_outline'],
   lamination => $_POST['lamination'],
-  eyelets => $_POST['eyelets'],
   gluing => $_POST['gluing'],
   rolling => $_POST['rolling'],
 );
+$eyelets_option = $_POST['eyelets_radio'];
+
+if ($eyelets_option != 0) {
+  $options[gluing] = true;
+}
 
 $email = $_POST['email'];
 $phone = $_POST['phone'];
@@ -88,7 +94,7 @@ switch ($material) {
     $options[eyelets] = '';
     $options[gluing] = '';
     break;
-  case 2: case 11: case 12: case 13:
+  case 2: case 11: case 12: case 13: case 14: case 15:
     $options[cut_outline] = '';
     $options[lamination] = '';
     $options[eyelets] = '';

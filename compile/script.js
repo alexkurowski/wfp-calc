@@ -3,14 +3,14 @@
   var calculate;
 
   calculate = function() {
-    var amount, current_material_prices, eyelets_option, length, material, options, price, pricelist, quality, time, total_meterage, total_perimeter, width;
+    var amount, current_material_prices, eyelets_option, gluing, length, material, options, price, pricelist, quality, time, total_meterage, total_perimeter, width;
     pricelist = {
-      material_360_ifl: [220, 400, 430, 350, 220, 180, 200, 320, 220, '-', 90, 90, 428, 370],
-      material_360_ifg: [200, 350, 410, 330, 200, 160, 180, 300, 200, '-', 80, 80, 408, 350],
-      material_720_ifl: [375, 900, 680, 560, 340, 300, 330, 505, 400, 435, 240, 230, 650, 590],
-      material_720_ifg: [310, 850, 630, 510, 290, 255, 280, 455, 350, 385, 200, 190, 630, 540],
-      material_1440_ifl: [475, 1100, 835, 680, 430, 380, 400, 620, '-', 530, 305, 290, 835, 725],
-      material_1440_ifg: [380, 1060, 785, 640, 360, 330, 350, 570, '-', 480, 255, 240, 785, 675],
+      material_360_ifl: [245, 620, 470, 580, 255, 190, 210, 330, 250, '-', 180, 105, '-', '-', '-', '-'],
+      material_360_ifg: [210, 540, 410, 505, 220, 165, 180, 300, 215, '-', 155, 90, '-', '-', '-', '-'],
+      material_720_ifl: [385, 955, 700, 895, 390, 310, 330, 525, 400, 455, 280, 160, 700, 1740, 635, 790],
+      material_720_ifg: [320, 830, 610, 775, 340, 265, 280, 455, 350, 385, 240, 140, 610, 1510, 550, 685],
+      material_1440_ifl: [485, 1200, 875, 1115, 490, 380, 375, 600, '-', 555, 345, 200, 875, 2175, 790, 985],
+      material_1440_ifg: [400, 1040, 760, 970, 425, 330, 325, 520, '-', 480, 300, 175, 760, 1890, 685, 855],
       postprint: {
         cut_perimeter: 10,
         cut_outline: 312,
@@ -31,6 +31,11 @@
         $("select[name='quality']").val('720');
       }
       $("option[value='1440']").attr('disabled', 'disabled').siblings().removeAttr('disabled');
+    } else if (material === 12 || material === 13 || material === 14 || material === 15) {
+      if (Number($("select[name='quality']").val()) === 360) {
+        $("select[name='quality']").val('720');
+      }
+      $("option[value='360']").attr('disabled', 'disabled').siblings().removeAttr('disabled');
     } else {
       $("option[value='360']").removeAttr('disabled');
       $("option[value='1440']").removeAttr('disabled');
@@ -46,6 +51,8 @@
       case 11:
       case 12:
       case 13:
+      case 14:
+      case 15:
         $('input[name="cut_perimeter"]').removeAttr('disabled');
         $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled', 'disabled');
         break;
@@ -73,10 +80,14 @@
       cut_perimeter: $("input[name='cut_perimeter']").is(':disabled') ? false : $("input[name='cut_perimeter']").is(':checked'),
       cut_outline: $("input[name='cut_outline']").is(':disabled') ? false : $("input[name='cut_outline']").is(':checked'),
       lamination: $("input[name='lamination']").is(':disabled') ? false : $("input[name='lamination']").is(':checked'),
-      eyelets: $("input[name='eyelets']").is(':disabled') ? false : $("input[name='eyelets']").is(':checked'),
       gluing: $("input[name='gluing']").is(':disabled') ? false : $("input[name='gluing']").is(':checked'),
       rolling: $("input[name='rolling']").is(':disabled') ? false : $("input[name='rolling']").is(':checked')
     };
+    eyelets_option = Number($("input[name='eyelets_radio']:checked").val());
+    if (eyelets_option !== 0) {
+      $('input[name="gluing"]').attr('checked', 'checked');
+      gluing = true;
+    }
     total_perimeter = (width + length) * 2 * amount;
     total_meterage = width * length * amount;
     if (quality === 360) {
@@ -108,7 +119,7 @@
     if (options.lamination) {
       price = price + total_meterage * pricelist.postprint.lamination;
     }
-    if (eyelets_option = 4) {
+    if (eyelets_option === 4) {
       price = price + 4 * pricelist.postprint.eyelet * amount;
     } else if (eyelets_option === 30) {
       price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet;

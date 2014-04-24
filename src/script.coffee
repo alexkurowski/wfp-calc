@@ -18,42 +18,44 @@ calculate = ->
 
   # 12  = Холст
   # 13  = Фотообои флизелиновы
+  # 14  = Фотообои бумажные
+  # 15  = Фотообои бумажные
   pricelist = {
     material_360_ifl: [
       245, 620, 470, 580,
       255, 190, 210, 330, 250,
       '-', 180, 105,
-      '-', '-'
+      '-', '-', '-', '-'
     ],
     material_360_ifg: [
       210, 540, 410, 505,
       220, 165, 180, 300, 215,
       '-', 155, 90,
-      '-', '-'
+      '-', '-', '-', '-'
     ],
     material_720_ifl: [
       385, 955, 700, 895,
       390, 310, 330, 525, 400,
       455, 280, 160,
-      700, 1740
+      700, 1740, 635, 790
     ],
     material_720_ifg: [
       320, 830, 610, 775,
       340, 265, 280, 455, 350,
       385, 240, 140,
-      610, 1510
+      610, 1510, 550, 685
     ],
     material_1440_ifl: [
       485, 1200, 875, 1115,
       490, 380, 375, 600, '-',
       555, 345, 200,
-      875, 2175
+      875, 2175, 790, 985
     ],
     material_1440_ifg: [
       400, 1040, 760, 970,
       425, 330, 325, 520, '-',
       480, 300, 175,
-      760, 1890
+      760, 1890, 685, 855
     ]
 
     postprint: {
@@ -77,7 +79,7 @@ calculate = ->
     if Number($("select[name='quality']").val()) == 1440
       $("select[name='quality']").val('720')
     $("option[value='1440']").attr('disabled','disabled').siblings().removeAttr('disabled');
-  else if material == 12 or material == 13
+  else if material == 12 or material == 13 or material == 14 or material == 15
     if Number($("select[name='quality']").val()) == 360
       $("select[name='quality']").val('720')
     $("option[value='360']").attr('disabled','disabled').siblings().removeAttr('disabled');
@@ -89,7 +91,7 @@ calculate = ->
     when 0, 1, 3
       $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"]').removeAttr('disabled')
       $('input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
-    when 2, 11, 12, 13
+    when 2, 11, 12, 13, 14, 15
       $('input[name="cut_perimeter"]').removeAttr('disabled')
       $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
     when 4, 5, 6, 7, 8
@@ -101,7 +103,7 @@ calculate = ->
     else
       $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled')
 
-
+  
   width = Number($("input[name='width']").val())
   length = Number($("input[name='length']").val())
   amount = Number($("input[name='amount']").val())
@@ -110,10 +112,15 @@ calculate = ->
     cut_perimeter: if $("input[name='cut_perimeter']").is(':disabled') then false else $("input[name='cut_perimeter']").is(':checked')
     cut_outline:   if $("input[name='cut_outline']").is(':disabled') then false else $("input[name='cut_outline']").is(':checked')
     lamination:    if $("input[name='lamination']").is(':disabled') then false else $("input[name='lamination']").is(':checked')
-    eyelets:       if $("input[name='eyelets']").is(':disabled') then false else $("input[name='eyelets']").is(':checked')
     gluing:        if $("input[name='gluing']").is(':disabled') then false else $("input[name='gluing']").is(':checked')
     rolling:       if $("input[name='rolling']").is(':disabled') then false else $("input[name='rolling']").is(':checked')
   }
+
+  eyelets_option = Number($("input[name='eyelets_radio']:checked").val())
+
+  if eyelets_option != 0
+    $('input[name="gluing"]').attr('checked', 'checked')
+    gluing = true
 
   total_perimeter = (width + length) * 2 * amount
   total_meterage = width * length * amount
@@ -144,7 +151,7 @@ calculate = ->
   if options.lamination
     price = price + total_meterage * pricelist.postprint.lamination
   # if options.eyelets
-  if eyelets_option = 4
+  if eyelets_option == 4
     price = price + 4 * pricelist.postprint.eyelet * amount
   else if eyelets_option == 30
     price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet
