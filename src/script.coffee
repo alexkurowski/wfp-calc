@@ -36,7 +36,7 @@ calculate = ->
     material_720_ifl: [
       385, 955, 700, 895,
       390, 310, 330, 525, 400,
-      455, 280, 160,
+      445, 280, 160,
       700, 1740, 635, 790
     ],
     material_720_ifg: [
@@ -153,9 +153,9 @@ calculate = ->
   if eyelets_option == 4
     price = price + 4 * pricelist.postprint.eyelet * amount
   else if eyelets_option == 30
-    price = price + Math.floor(total_perimeter / 0.3) * pricelist.postprint.eyelet
+    price = price + total_perimeter / 0.3 * pricelist.postprint.eyelet
   else if eyelets_option == 50
-    price = price + Math.floor(total_perimeter / 0.5) * pricelist.postprint.eyelet
+    price = price + total_perimeter / 0.5 * pricelist.postprint.eyelet
   if options.gluing
     price = price + total_perimeter * pricelist.postprint.gluing
   if options.rolling
@@ -191,7 +191,17 @@ calculate = ->
   
   $("#price").html(price)
   $("#time").html(time)
-  
+
+check_email = ->
+  $('input[id="submit"]').prop('disabled', false)    
+
+  re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if not re.test($("input[name='email']").val())
+    $('input[id="submit"]').prop('disabled', true)
+
+  if $("input[name='phone']").val().length < 10
+    $('input[id="submit"]').prop('disabled', true)
+
 
 jQuery ->
   $(document).ready -> calculate()
@@ -200,3 +210,5 @@ jQuery ->
   $("input[name='width']").on('input', calculate)
   $("input[name='height']").on('input', calculate)
   $("input[name='number']").on('input', calculate)
+  $("input[name='email']").on('input', check_email)
+  $("input[name='phone']").on('input', check_email)

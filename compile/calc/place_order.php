@@ -154,9 +154,9 @@ if (isset($_POST['width']) && isset($_POST['length']) && isset($_POST['amount'])
     if ($eyelets_option == 4)
       $price = $price + 4 * $pricelist[postprint][eyelet] * $amount;
     elseif ($eyelets_option == 30)
-      $price = $price + floor($total_meterage / 0.3) * $pricelist[postprint][eyelet];
+      $price = $price + $total_meterage / 0.3 * $pricelist[postprint][eyelet];
     elseif ($eyelets_option == 50)
-      $price = $price + floor($total_meterage / 0.5) * $pricelist[postprint][eyelet];
+      $price = $price + $total_meterage / 0.5 * $pricelist[postprint][eyelet];
     if ($options[gluing] == 'on')
       $price = $price + $total_perimeter * $pricelist[postprint][gluing];
     if ($options[rolling] == 'on')
@@ -223,7 +223,11 @@ $message .= "\nРасчетная стоимость: " . $price;
 $message .= "\nРасчетное время: " . $time;
 $message .= "\n\nКомментарий клиента: " . $comment;
 
-mail("info@1a24.ru", "Заказ широкоформатной печати (сайт)", $message);
+$headers = "From: 1a24\r\n".
+           "MIME-Version: 1.0\r\n".
+           "Content-type: text/plain; charset=UTF-8\r\n";
+
+mail("info@1a24.ru", "Заказ широкоформатной печати (сайт)", $message, $headers);
 
 $url = "http://1a24.ru/?page_id=143";
 header('Location: ' . $url);
