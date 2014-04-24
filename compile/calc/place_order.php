@@ -15,7 +15,7 @@ $pricelist = array(
   '720_ifl' => array(
     385, 955, 700, 895,
     390, 310, 330, 525, 400,
-    455, 280, 160,
+    445, 280, 160,
     700, 1740, 635, 790,
   ),
   '720_ifg' => array(
@@ -207,17 +207,19 @@ if ($options[cut_outline] == 'on')
   $message .= "-- Контурная резка\n";
 if ($options[lamination] == 'on')
   $message .= "-- Ламинирование\n";
-if ($options[eyelets] == 'on')
-  if ($eyelets_option == 4)
-    $message .= "-- Люверсы по углам\n";
-  elseif ($eyelets_option == 30)
-    $message .= "-- Люверсы каждые 30 см\n";
-  elseif ($eyelets_option == 50)
-    $message .= "-- Люверсы каждые 50 см\n";
+if ($eyelets_option == 4)
+  $message .= "-- Люверсы по углам\n";
+elseif ($eyelets_option == 30)
+  $message .= "-- Люверсы каждые 30 см\n";
+elseif ($eyelets_option == 50)
+  $message .= "-- Люверсы каждые 50 см\n";
 if ($options[gluing] == 'on')
   $message .= "-- Проклейка\n";
 if ($options[rolling] == 'on')
   $message .= "-- Накатывание\n";
+
+if ($options[cut_perimeter] != 'on' && $options[cut_outline] != 'on' && $options[lamination] != 'on' &&
+    $eyelets_option == 0 && $options[gluing] != 'on' && $options[rolling] ~= 'on') $message .= "-- Отсутствует";
 
 $message .= "\nРасчетная стоимость: " . $price;
 $message .= "\nРасчетное время: " . $time;

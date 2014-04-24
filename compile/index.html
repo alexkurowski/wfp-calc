@@ -10,8 +10,8 @@
 <body>
   <form action='calc/place_order.php' class='calc' method='post'>
     <label>Материал:</label>
-    <select class='form-control' multiple='true' name='material' size='7'>
-      <option value='0'>Пленка ORAJET 3640</option>
+    <select class='form-control' name='material' size='7'>
+      <option selected='true' value='0'>Пленка ORAJET 3640</option>
       <option value='1'>Пленка ORAJET 3850 Транслюцентная</option>
       <option value='2'>Бэклит</option>
       <option value='3'>Перфорированная плёнка</option>
@@ -112,6 +112,6 @@
     <br>
     <textarea id='comment' name='comment' type='text'></textarea>
     <br>
-    <input class='btn btn-primary' id='submit' type='submit' value='Заказать'>
+    <input class='btn btn-primary' disabled='true' id='submit' type='submit' value='Заказать'>
   </form>
 </body>

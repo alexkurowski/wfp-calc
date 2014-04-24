@@ -173,7 +173,8 @@
       time = time + " дней";
     }
     $("#price").html(price);
-    return $("#time").html(time);
+    $("#time").html(time);
+    return check_email();
   };
 
   check_email = function() {

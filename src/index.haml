@@ -9,8 +9,8 @@
 %body
   %form.calc{:action => 'calc/place_order.php', :method => 'post'}
     %label Материал:
-    %select.form-control{:name => 'material', :multiple => 'true', :size => '7'}
-      %option{:value => '0'} Пленка ORAJET 3640
+    %select.form-control{:name => 'material', :size => '7'}
+      %option{:value => '0', :selected => 'true'} Пленка ORAJET 3640
       %option{:value => '1'} Пленка ORAJET 3850 Транслюцентная
       %option{:value => '2'} Бэклит
       %option{:value => '3'} Перфорированная плёнка
@@ -94,4 +94,4 @@
     %br
     %textarea#comment{:type => 'text', :name => 'comment'}
     %br
-    %input.btn.btn-primary{:id => 'submit', :type => 'submit', :value => 'Заказать'}
+    %input.btn.btn-primary{:id => 'submit', :type => 'submit', :value => 'Заказать', :disabled => 'true'}

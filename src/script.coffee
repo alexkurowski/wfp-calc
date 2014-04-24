@@ -204,6 +204,8 @@ calculate = ->
   $("#price").html(price)
   $("#time").html(time)
 
+  check_email()
+
 check_email = ->
   $('input[id="submit"]').prop('disabled', false)    
 
