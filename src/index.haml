@@ -1,12 +1,15 @@
 !!!
 %head
   == <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  == <link rel="stylesheet" href="calc/bootstrap.min.css">
+  == <link rel="stylesheet" href="calc/style.css"></script>
+  == <script src="calc/bootstrap.min.js"></script>
   == <script src="calc/script.js"></script>
   == <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 %body
   %form.calc{:action => 'calc/place_order.php', :method => 'post'}
-    Материал:
-    %select{:name => 'material'}
+    %label Материал:
+    %select.form-control{:name => 'material', :multiple => 'true', :size => '7'}
       %option{:value => '0'} Пленка ORAJET 3640
       %option{:value => '1'} Пленка ORAJET 3850 Транслюцентная
       %option{:value => '2'} Бэклит
@@ -24,62 +27,71 @@
       %option{:value => '14'} Фотообои бумажные 275 г/м2 (Китай)
       %option{:value => '15'} Фотообои бумажные 275 г/м2 (Нидерланды)
     %br
-    Ширина (м):
-    %input{:type => 'number', :name => 'width', :step => 0.1, :value => 1}
+    .size_control
+      .width_control
+        %label Ширина (м):
+        %input.form-control{:type => 'number', :name => 'width', :step => 0.1, :value => 1}
+      .height_control
+        %label Длина (м):
+        %input.form-control{:type => 'number', :name => 'length', :step => 0.1, :value => 1}
+      .amount_control
+        %label Тираж (шт):
+        %input.form-control{:type => 'number', :name => 'amount', :value => 1}
     %br
-    Длина (м):
-    %input{:type => 'number', :name => 'length', :step => 0.1, :value => 1}
-    %br
-    Тираж (шт):
-    %input{:type => 'number', :name => 'amount', :value => 1}
-    %br
-    Качество:
-    %select{:name => 'quality'}
+    %label#quality Качество:
+    %select.form-control{:name => 'quality'}
       %option{:value => '360'} 360 dpi
       %option{:value => '720'} 720 dpi
       %option{:value => '1440'} 1440 dpi
     %br
-    Постпечатная обработка:
-    #postpress_options
-      %input{:type => 'checkbox', :name => 'cut_perimeter'}
-      Резка по периметру
-      %br
-      %input{:type => 'checkbox', :name => 'cut_outline'}
-      Контурная резка
-      %br
-      %input{:type => 'checkbox', :name => 'lamination'}
-      Ламинирование
-      %br
-      #eyelets_options
+    %label#postpress Постпечатная обработка:
+    %br
+    .postpress_wrap
+      .checkbox
+        %input{:type => 'checkbox', :name => 'cut_perimeter'}
+        Резка по периметру
+      .checkbox
+        %input{:type => 'checkbox', :name => 'cut_outline'}
+        Контурная резка
+      .checkbox
+        %input{:type => 'checkbox', :name => 'lamination'}
+        Ламинирование
+      .checkbox
+        %input{:type => 'checkbox', :name => 'gluing'}
+        Проклейка
+    .eyelets_wrap
+      .radio
         %input{:type => 'radio', :name => 'eyelets_radio', :value => '0', :checked => 'true'}
         Без люверсов
+      .radio
         %input{:type => 'radio', :name => 'eyelets_radio', :value => '4'}
         По углам
+      .radio
         %input{:type => 'radio', :name => 'eyelets_radio', :value => '30'}
         Каждые 30 см
+      .radio
         %input{:type => 'radio', :name => 'eyelets_radio', :value => '50'}
         Каждые 50 см
-      %input{:type => 'checkbox', :name => 'gluing'}
-      Проклейка
       / %br
       / %input{:type => 'checkbox', :name => 'rolling'}
       / Накатка на материал
     %br
-    Итого:
-    %span#price 
+    .results
+      %span#price_label Итого:
+      %span#price 
+      %br
+      %span#time_label Примерное время изготовления:
+      %span#time
     %br
-    Примерное время изготовления:
-    %span#time
     %br
+    %label Ваш e-mail:
+    %input.form-control#email{:type => 'text', :name => 'email', :placeholder => 'имя@пример.ru'}
     %br
+    %label Ваш телефон:
+    %input.form-control#phone{:type => 'text', :name => 'phone', :placeholder => '8 945 123 45 67'}
     %br
-    Ваш e-mail:
-    %input{:type => 'text', :name => 'email'}
+    %label Комментарии:
     %br
-    Ваш телефон:
-    %input{:type => 'text', :name => 'phone'}
+    %textarea#comment{:type => 'text', :name => 'comment'}
     %br
-    Комментарии:
-    %input{:type => 'text', :name => 'comment'}
-    %br
-    %input{:id => 'submit', :type => 'submit', :value => 'Заказать'}
+    %input.btn.btn-primary{:id => 'submit', :type => 'submit', :value => 'Заказать'}

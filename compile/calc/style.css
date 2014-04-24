@@ -1,0 +1,100 @@
+.calc {
+    width: 50%;
+    min-width: 450px;
+    margin: 0 auto;
+}
+
+.size_control {
+}
+
+.width_control, .height_control, .amount_control {
+    /*text-align: center;*/
+    width: 30%;
+    display: inline;
+    margin: 0 auto;
+}
+
+.width_control {
+    float: left;
+}
+
+.height_control {
+    float: left;
+    margin-left: 5%;
+}
+
+.amount_control {
+    float: right;
+}
+
+label {
+    padding-left: 8px;
+}
+
+label#quality {
+    margin-top: 16px;
+}
+
+label#postpress {
+    margin-top: 6px;
+    margin-bottom: -6px;
+}
+
+.postpress_wrap {
+    padding: 4px;
+}
+
+.postpress_opt {
+    width: 24.5%;
+    display: inline-table;
+}
+
+.eyelets_wrap {
+    padding: 4px;
+    padding-top: 2px;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: block;
+    width: 24.5%;
+
+    position: relative;
+    left: -10px;
+
+    border: solid;
+    border-color: #eee;
+    border-radius: 5px;
+}
+
+.eyelets_opt {
+    /*width: 24.5%;*/
+    display: inline-table;
+}
+
+.radio, .checkbox {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.results {
+    font-size: large;
+}
+
+#price_label, #time_label {
+    font-weight: bold;
+}
+
+#email, #phone, #comment {
+    width: 50%;
+}
+
+#comment {
+    height: 100px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+}
+
+#submit {
+    width: 50%;
+    height: 40px;
+    margin-bottom: 100px
+}

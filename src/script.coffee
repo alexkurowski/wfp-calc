@@ -74,15 +74,15 @@ calculate = ->
   if material == 9
     if Number($("select[name='quality']").val()) == 360
       $("select[name='quality']").val('720')
-    $("option[value='360']").attr('disabled','disabled').siblings().removeAttr('disabled');
+    $("option[value='360']").prop('disabled','disabled').siblings().removeAttr('disabled');
   else if material == 8
     if Number($("select[name='quality']").val()) == 1440
       $("select[name='quality']").val('720')
-    $("option[value='1440']").attr('disabled','disabled').siblings().removeAttr('disabled');
+    $("option[value='1440']").prop('disabled','disabled').siblings().removeAttr('disabled');
   else if material == 12 or material == 13 or material == 14 or material == 15
     if Number($("select[name='quality']").val()) == 360
       $("select[name='quality']").val('720')
-    $("option[value='360']").attr('disabled','disabled').siblings().removeAttr('disabled');
+    $("option[value='360']").prop('disabled','disabled').siblings().removeAttr('disabled');
   else
     $("option[value='360']").removeAttr('disabled')
     $("option[value='1440']").removeAttr('disabled')
@@ -107,6 +107,18 @@ calculate = ->
   width = Number($("input[name='width']").val())
   length = Number($("input[name='length']").val())
   amount = Number($("input[name='amount']").val())
+
+  if width < 0
+    $("input[name='width']").prop('value', 0)
+    width = 0
+  if length < 0
+    $("input[name='length']").prop('value', 0)
+    length = 0
+  if amount < 1
+    $("input[name='amount']").prop('value', 1)
+    amount = 1
+
+
   quality = Number($("select[name='quality']").val())
   options = {
     cut_perimeter: if $("input[name='cut_perimeter']").is(':disabled') then false else $("input[name='cut_perimeter']").is(':checked')

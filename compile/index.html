@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <head>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="calc/bootstrap.min.css">
+  <link rel="stylesheet" href="calc/style.css"></script>
+  <script src="calc/bootstrap.min.js"></script>
   <script src="calc/script.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
   <form action='calc/place_order.php' class='calc' method='post'>
-    Материал:
-    <select name='material'>
+    <label>Материал:</label>
+    <select class='form-control' multiple='true' name='material' size='7'>
       <option value='0'>Пленка ORAJET 3640</option>
       <option value='1'>Пленка ORAJET 3850 Транслюцентная</option>
       <option value='2'>Бэклит</option>
@@ -26,67 +29,89 @@
       <option value='15'>Фотообои бумажные 275 г/м2 (Нидерланды)</option>
     </select>
     <br>
-    Ширина (м):
-    <input name='width' step='0.1' type='number' value='1'>
+    <div class='size_control'>
+      <div class='width_control'>
+        <label>Ширина (м):</label>
+        <input class='form-control' name='width' step='0.1' type='number' value='1'>
+      </div>
+      <div class='height_control'>
+        <label>Длина (м):</label>
+        <input class='form-control' name='length' step='0.1' type='number' value='1'>
+      </div>
+      <div class='amount_control'>
+        <label>Тираж (шт):</label>
+        <input class='form-control' name='amount' type='number' value='1'>
+      </div>
+    </div>
     <br>
-    Длина (м):
-    <input name='length' step='0.1' type='number' value='1'>
-    <br>
-    Тираж (шт):
-    <input name='amount' type='number' value='1'>
-    <br>
-    Качество:
-    <select name='quality'>
+    <label id='quality'>Качество:</label>
+    <select class='form-control' name='quality'>
       <option value='360'>360 dpi</option>
       <option value='720'>720 dpi</option>
       <option value='1440'>1440 dpi</option>
     </select>
     <br>
-    Постпечатная обработка:
-    <div id='postpress_options'>
-      <input name='cut_perimeter' type='checkbox'>
-      Резка по периметру
-      <br>
-      <input name='cut_outline' type='checkbox'>
-      Контурная резка
-      <br>
-      <input name='lamination' type='checkbox'>
-      Ламинирование
-      <br>
-      <div id='eyelets_options'>
+    <label id='postpress'>Постпечатная обработка:</label>
+    <br>
+    <div class='postpress_wrap'>
+      <div class='checkbox'>
+        <input name='cut_perimeter' type='checkbox'>
+        Резка по периметру
+      </div>
+      <div class='checkbox'>
+        <input name='cut_outline' type='checkbox'>
+        Контурная резка
+      </div>
+      <div class='checkbox'>
+        <input name='lamination' type='checkbox'>
+        Ламинирование
+      </div>
+      <div class='checkbox'>
+        <input name='gluing' type='checkbox'>
+        Проклейка
+      </div>
+    </div>
+    <div class='eyelets_wrap'>
+      <div class='radio'>
         <input checked='true' name='eyelets_radio' type='radio' value='0'>
         Без люверсов
+      </div>
+      <div class='radio'>
         <input name='eyelets_radio' type='radio' value='4'>
         По углам
+      </div>
+      <div class='radio'>
         <input name='eyelets_radio' type='radio' value='30'>
         Каждые 30 см
+      </div>
+      <div class='radio'>
         <input name='eyelets_radio' type='radio' value='50'>
         Каждые 50 см
       </div>
-      <input name='gluing' type='checkbox'>
-      Проклейка
       <!-- %br -->
       <!-- %input{:type => 'checkbox', :name => 'rolling'} -->
       <!-- Накатка на материал -->
     </div>
     <br>
-    Итого:
-    <span id='price'></span>
+    <div class='results'>
+      <span id='price_label'>Итого:</span>
+      <span id='price'></span>
+      <br>
+      <span id='time_label'>Примерное время изготовления:</span>
+      <span id='time'></span>
+    </div>
     <br>
-    Примерное время изготовления:
-    <span id='time'></span>
     <br>
+    <label>Ваш e-mail:</label>
+    <input class='form-control' id='email' name='email' placeholder='имя@пример.ru' type='text'>
     <br>
+    <label>Ваш телефон:</label>
+    <input class='form-control' id='phone' name='phone' placeholder='8 945 123 45 67' type='text'>
     <br>
-    Ваш e-mail:
-    <input name='email' type='text'>
+    <label>Комментарии:</label>
     <br>
-    Ваш телефон:
-    <input name='phone' type='text'>
+    <textarea id='comment' name='comment' type='text'></textarea>
     <br>
-    Комментарии:
-    <input name='comment' type='text'>
-    <br>
-    <input id='submit' type='submit' value='Заказать'>
+    <input class='btn btn-primary' id='submit' type='submit' value='Заказать'>
   </form>
 </body>
