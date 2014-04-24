@@ -150,7 +150,6 @@ calculate = ->
     price = price + total_meterage * pricelist.postprint.cut_outline
   if options.lamination
     price = price + total_meterage * pricelist.postprint.lamination
-  # if options.eyelets
   if eyelets_option == 4
     price = price + 4 * pricelist.postprint.eyelet * amount
   else if eyelets_option == 30
