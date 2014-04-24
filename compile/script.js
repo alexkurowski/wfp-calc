@@ -3,7 +3,7 @@
   var calculate;
 
   calculate = function() {
-    var amount, current_material_prices, eyelets_option, gluing, length, material, options, price, pricelist, quality, time, total_meterage, total_perimeter, width;
+    var amount, current_material_prices, eyelets_option, length, material, options, price, pricelist, quality, time, total_meterage, total_perimeter, width;
     pricelist = {
       material_360_ifl: [245, 620, 470, 580, 255, 190, 210, 330, 250, '-', 180, 105, '-', '-', '-', '-'],
       material_360_ifg: [210, 540, 410, 505, 220, 165, 180, 300, 215, '-', 155, 90, '-', '-', '-', '-'],
@@ -45,7 +45,7 @@
       case 1:
       case 3:
         $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"]').removeAttr('disabled');
-        $('input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled', 'disabled');
+        $('input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').prop('disabled', 'disabled');
         break;
       case 2:
       case 11:
@@ -54,7 +54,7 @@
       case 14:
       case 15:
         $('input[name="cut_perimeter"]').removeAttr('disabled');
-        $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled', 'disabled');
+        $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').prop('disabled', 'disabled');
         break;
       case 4:
       case 5:
@@ -62,12 +62,12 @@
       case 7:
       case 8:
         $('input[name="cut_perimeter"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled');
-        $('input[name="cut_outline"], input[name="lamination"]').attr('disabled', 'disabled');
+        $('input[name="cut_outline"], input[name="lamination"]').prop('disabled', 'disabled');
         break;
       case 9:
       case 10:
         $('input[name="cut_perimeter"], input[name="lamination"]').removeAttr('disabled');
-        $('input[name="cut_outline"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled', 'disabled');
+        $('input[name="cut_outline"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').prop('disabled', 'disabled');
         break;
       default:
         $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled');
@@ -85,8 +85,8 @@
     };
     eyelets_option = Number($("input[name='eyelets_radio']:checked").val());
     if (eyelets_option !== 0) {
-      $('input[name="gluing"]').attr('checked', 'checked');
-      gluing = true;
+      $('input[name="gluing"]').prop('checked', true);
+      options.gluing = true;
     }
     total_perimeter = (width + length) * 2 * amount;
     total_meterage = width * length * amount;

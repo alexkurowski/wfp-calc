@@ -90,16 +90,16 @@ calculate = ->
   switch material
     when 0, 1, 3
       $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"]').removeAttr('disabled')
-      $('input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
+      $('input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').prop('disabled','disabled')
     when 2, 11, 12, 13, 14, 15
       $('input[name="cut_perimeter"]').removeAttr('disabled')
-      $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
+      $('input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').prop('disabled','disabled')
     when 4, 5, 6, 7, 8
       $('input[name="cut_perimeter"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled')
-      $('input[name="cut_outline"], input[name="lamination"]').attr('disabled','disabled')
+      $('input[name="cut_outline"], input[name="lamination"]').prop('disabled','disabled')
     when 9, 10
       $('input[name="cut_perimeter"], input[name="lamination"]').removeAttr('disabled')
-      $('input[name="cut_outline"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').attr('disabled','disabled')
+      $('input[name="cut_outline"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').prop('disabled','disabled')
     else
       $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"], input[name="eyelets"], input[name="eyelets_radio"], input[name="gluing"]').removeAttr('disabled')
 
@@ -119,8 +119,8 @@ calculate = ->
   eyelets_option = Number($("input[name='eyelets_radio']:checked").val())
 
   if eyelets_option != 0
-    $('input[name="gluing"]').attr('checked', 'checked')
-    gluing = true
+    $('input[name="gluing"]').prop('checked', true)
+    options.gluing = true
 
   total_perimeter = (width + length) * 2 * amount
   total_meterage = width * length * amount
