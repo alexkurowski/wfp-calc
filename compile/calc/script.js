@@ -40,6 +40,7 @@
       $("option[value='360']").removeAttr('disabled');
       $("option[value='1440']").removeAttr('disabled');
     }
+    $("select[name='material']").find("option:selected").css('background-color: #f44');
     switch (material) {
       case 0:
       case 1:

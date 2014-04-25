@@ -87,6 +87,8 @@ calculate = ->
     $("option[value='360']").removeAttr('disabled')
     $("option[value='1440']").removeAttr('disabled')
 
+  $("select[name='material']").find("option:selected").css('background-color: #f44')
+
   switch material
     when 0, 1, 3
       $('input[name="cut_perimeter"], input[name="cut_outline"], input[name="lamination"]').removeAttr('disabled')
