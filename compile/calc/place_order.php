@@ -91,13 +91,13 @@ $comment = $_POST['comment'];
 
 switch ($material) {
   case 0: case 1: case 3:
-    $options[eyelets] = '';
+    $eyelets_option = 0;
     $options[gluing] = '';
     break;
   case 2: case 11: case 12: case 13: case 14: case 15:
     $options[cut_outline] = '';
     $options[lamination] = '';
-    $options[eyelets] = '';
+    $eyelets_option = 0;
     $options[gluing] = '';
     break;
   case 4: case 5: case 6: case 7: case 8:
@@ -106,7 +106,7 @@ switch ($material) {
     break;
   case 9: case 10:
     $options[cut_outline] = '';
-    $options[eyelets] = '';
+    $eyelets_option = 0;
     $options[gluing] = '';
     break;
 }
@@ -219,7 +219,7 @@ if ($options[rolling] == 'on')
   $message .= "-- Накатывание\n";
 
 if ($options[cut_perimeter] != 'on' && $options[cut_outline] != 'on' && $options[lamination] != 'on' &&
-    $eyelets_option == 0 && $options[gluing] != 'on' && $options[rolling] ~= 'on') $message .= "-- Отсутствует";
+    $eyelets_option == 0 && $options[gluing] != 'on' && $options[rolling] != 'on') $message .= "-- Отсутствует";
 
 $message .= "\nРасчетная стоимость: " . $price;
 $message .= "\nРасчетное время: " . $time;
